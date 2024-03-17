@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared File - View Files</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="view/css/base.css">
+    <link rel="stylesheet" href="view/css/files.css">
+</head>
+<body>
+    <main>
+        <section class="main-section">
+            <h1>Browse Files..</h1>
+            <!-- Main content -->
+            <div class="main-content">
+                <div class="toolbar">
+                    <!-- Upload file -->
+                    <button class="open-upload-file">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: white;"><path d="M6 22h12a2 2 0 0 0 2-2V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2zm7-18 5 5h-5V4zM8 14h3v-3h2v3h3v2h-3v3h-2v-3H8v-2z"></path></svg>
+                        <span>Upload file(s)</span>
+                    </button>
+                </div>
+                <!-- File(s) table -->
+                <table>
+                    <!-- Column titles -->
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">File Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <!-- File contents here -->
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+        <section class="upload-file-section" style="visibility: hidden;">
+            <div class="modal">
+                <h2>Upload File(s)</h2>
+                <!-- Upload form -->
+                <form>
+                    <input type="file" name="upload-file" multiple required>
+                    <!-- Progress bar -->
+                    <div class="progress">
+                        <div class="bar">0%</div>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="buttons">
+                        <button type="submit" onclick="hideUploadFileSection()">Upload</button>
+                        <button type="reset" class="exit-btn" onclick="hideUploadFileSection()">Exit</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="view/js/controller.js"></script>
+    <script type="text/javascript">
+        const openBtn = document.querySelector("button.open-upload-file");
+        const uploadFileSection = document.querySelector("section.upload-file-section");
+        const exitBtn = document.querySelector(".buttons button.exit-btn");
+
+        // Open upload file section button listener
+        openBtn.addEventListener("click", () => {
+            // Toggle upload file section visibility style
+            if (uploadFileSection.style.visibility === "hidden") {
+                uploadFileSection.style.visibility = "visible";
+            }
+            else {
+                uploadFileSection.style.visibility = "hidden";
+            }
+        });
+
+        // close upload file section function
+        const hideUploadFileSection = () => {
+            uploadFileSection.style.visibility = "hidden";
+        }
+    </script>
+    <!-- Upload file form handler -->
+    <script type="text/javascript">
+        const uploadFileForm = document.querySelector("section.upload-file-section form");
+
+        // Upload file form listener
+        // This part should be handled manually, cannot use
+        // traditional post method from form action
+        uploadFileForm.addEventListener("submit", (e) => {
+            // Prevent web from reloading
+            e.preventDefault();
+
+            const filesInput = document.querySelector("section.upload-file-section input[type='file']");
+
+            const formData = new FormData();
+
+            // Append files into form data
+            for (let i = 0; i < filesInput.files.length; i++) {
+                formData.append('files', filesInput.files[i]);
+            }
+
+            // Send post request to 'upload_files' route
+            fetch('/upload_files', {
+                body: formData,
+                method: 'post',
+                mode: 'no-cors'
+            })
+            .catch((err) => console.error(err));
+
+            initFileData();
+        });
+    </script>
+</body>
+</html>

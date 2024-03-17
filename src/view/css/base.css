@@ -1,0 +1,31 @@
+:root {
+    --green-clr-100: hsl(144, 67%, 42%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+p, span, label, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--green-clr-100);
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.8);
+    -webkit-filter: brightness(0.8);
+}
+
+input {
+    padding: 0 .2rem 0 .2rem;
+    outline: none;
+}

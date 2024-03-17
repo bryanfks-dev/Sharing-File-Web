@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared File - Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="view/css/base.css">
+    <link rel="stylesheet" href="view/css/login.css">
+</head>
+<body>
+    <main>
+        <form method="post">
+            <div class="input-wrapper">
+                <label for="password">Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">Go</button>
+        </form>
+    </main>
+
+    <!-- Javascript -->
+    <script type="text/javascript">
+        const fetchMsg = async () => {
+            const res = await fetch('/api/loginMsg', {
+                method: 'GET',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const json = await res.json()
+
+            // Check if json message is empty
+            if (json.message) {
+                alert(json.message);
+            }
+        }
+
+        fetchMsg();
+    </script>
+</body>
+</html>
