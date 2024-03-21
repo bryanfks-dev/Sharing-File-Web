@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "nodemonConfig": {
-    "ignore": ["/saved_files"]
+    "ignore": ["/saved_files/"]
   },
   "author": "bryanfks-dev",
   "license": "ISC",

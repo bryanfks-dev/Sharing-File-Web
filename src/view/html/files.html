@@ -45,11 +45,12 @@
                     <input type="file" name="upload-file" multiple required>
                     <!-- Progress bar -->
                     <div class="progress">
-                        <div class="bar">0%</div>
+                        <progress value="0"></progress>
+                        <p class="loaded-total"></p>
                     </div>
                     <!-- Buttons -->
                     <div class="buttons">
-                        <button type="submit" onclick="hideUploadFileSection()">Upload</button>
+                        <button type="submit" class="upload-btn">Upload</button>
                         <button type="reset" class="exit-btn" onclick="hideUploadFileSection()">Exit</button>
                     </div>
                 </form>
@@ -58,11 +59,10 @@
     </main>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="view/js/controller.js"></script>
+    <script type="text/javascript" src="view/js/fileDataHandler.js"></script>
+    <script type="text/javascript" src="view/js/uploadFormHandler.js"></script>
     <script type="text/javascript">
         const openBtn = document.querySelector("button.open-upload-file");
-        const uploadFileSection = document.querySelector("section.upload-file-section");
-        const exitBtn = document.querySelector(".buttons button.exit-btn");
 
         // Open upload file section button listener
         openBtn.addEventListener("click", () => {
@@ -73,42 +73,6 @@
             else {
                 uploadFileSection.style.visibility = "hidden";
             }
-        });
-
-        // close upload file section function
-        const hideUploadFileSection = () => {
-            uploadFileSection.style.visibility = "hidden";
-        }
-    </script>
-    <!-- Upload file form handler -->
-    <script type="text/javascript">
-        const uploadFileForm = document.querySelector("section.upload-file-section form");
-
-        // Upload file form listener
-        // This part should be handled manually, cannot use
-        // traditional post method from form action
-        uploadFileForm.addEventListener("submit", (e) => {
-            // Prevent web from reloading
-            e.preventDefault();
-
-            const filesInput = document.querySelector("section.upload-file-section input[type='file']");
-
-            const formData = new FormData();
-
-            // Append files into form data
-            for (let i = 0; i < filesInput.files.length; i++) {
-                formData.append('files', filesInput.files[i]);
-            }
-
-            // Send post request to 'upload_files' route
-            fetch('/upload_files', {
-                body: formData,
-                method: 'post',
-                mode: 'no-cors'
-            })
-            .catch((err) => console.error(err));
-
-            initFileData();
         });
     </script>
 </body>

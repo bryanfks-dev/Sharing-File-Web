@@ -92,6 +92,16 @@ tbody td:nth-child(2) {
     cursor: pointer;
 }
 
+.modal form .progress progress {
+    width: 100%;
+    display: none;
+}
+
+.modal form .progress p {
+    font-size: 0.875rem;
+    text-align: center;
+}
+
 .modal form .buttons {
     display: flex;
     flex-direction: column;

@@ -34,24 +34,6 @@ const initFileData = async () => {
 
 initFileData();
 
-// Polling file data from storage every 5 seconds
 setInterval(() => {
     initFileData();
 }, 5000);
-
-/* Hidden function(s) */
-const deleteFileData = (filename, password) => {
-    const formData = new FormData();
-
-    // Append param to form data
-    formData.append("filename", filename);
-    formData.appendd("password", password);
-
-    // Send post request to 'rm_file' route
-    fetch('/rm_file', {
-        body: formData,
-        method: 'post',
-        mode: 'no-cors'
-    })
-    .catch((err) => console.error(err));
-}
