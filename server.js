@@ -117,6 +117,8 @@ app.post('/rm_file', async (req, res) => {
             fs.stat(__dirname + `/saved_files/${cred.filename}`);
 
             console.log(`${cred.filename} has been deleted`);
+
+            initFileRoute();
         }
         else {
             console.log(`Filename with ${cred.filename} not exist in storage`);
@@ -129,7 +131,8 @@ app.post('/rm_file', async (req, res) => {
 
 // Function to initialize file routing
 const initFileRoute = () => {
-    const files = fs.readdirSync(__dirname + '/saved_files');
+    const savedFilesDir = __dirname + '/saved_files';
+    const files = fs.readdirSync(savedFilesDir);
 
     for (const file of files) {
         app.get(`/file/${file}`, (req, res) => {
@@ -138,7 +141,7 @@ const initFileRoute = () => {
                 return;
             }
 
-            res.download(__dirname + `/saved_files/${file}`);
+            res.download(`${savedFilesDir}/${file}`);
         });
     }
 }
