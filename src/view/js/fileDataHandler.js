@@ -1,4 +1,4 @@
-const fileData = (num, name, link) => {
+const fileData = (num, name) => {
     return `
         <tr>
             <td>${num}</td>
