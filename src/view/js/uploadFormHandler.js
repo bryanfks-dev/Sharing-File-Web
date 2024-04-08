@@ -31,6 +31,16 @@ const updateProgressBarValue = (ev) => {
     loadedTotal.textContent = `Uploaded ${ev.loaded} bytes of ${ev.total} bytes`;
 }
 
+const resetForm = () => {
+    hideUploadFileSection();
+    uploadFileForm.reset();
+
+    filesInput.disabled = false;
+    uploadBtn.disabled = false;
+
+    loadedTotal.textContent = '';
+}
+
 // Upload file form listener
 // This part should be handled manually, cannot use
 // traditional post method from form action
@@ -71,7 +81,7 @@ uploadFileForm.addEventListener("submit", (e) => {
 
             // Wait for certain seconds, then hide section
             setTimeout(() => {
-                hideUploadFileSection();
+                resetForm();
                 initFileData();
             }, 100);
         }

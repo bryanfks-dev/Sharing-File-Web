@@ -173,7 +173,8 @@ app.get('/api/filesData', (req, res) => {
     };
 
     // Read 'save_files' dir
-    const files = fs.readdirSync(__dirname + '/saved_files');
+    const files = fs.readdirSync(__dirname + '/saved_files')
+        .filter((name) => !name.startsWith("."));
 
     // Push all file data into object
     for (const file of files) {
